@@ -1,11 +1,10 @@
-﻿using System;
+﻿using BillToPayApi.Models;
+using BillToPayApi.Models.DTOs;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using BillToPayApi.Models;
 
 namespace BillToPayApi.Controllers
 {
@@ -82,7 +81,8 @@ namespace BillToPayApi.Controllers
             _context.ContaApagar.Add(contaApagar);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetContaApagar", new { id = contaApagar.Id }, contaApagar);
+            //return CreatedAtAction("GetContaApagar", new { id = contaApagar.Id }, contaApagar);
+            return CreatedAtAction(nameof(GetContaApagar), new { id = contaApagar.Id }, contaApagar);
         }
 
         // DELETE: api/ContaApagars/5
