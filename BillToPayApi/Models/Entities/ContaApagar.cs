@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BillToPayApi.Models
+namespace BillToPayApi.Models.Entities
 {
     public class ContaApagar
     {

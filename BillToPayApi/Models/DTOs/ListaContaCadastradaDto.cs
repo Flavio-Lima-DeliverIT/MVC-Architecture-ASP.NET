@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace BillToPayApi.Models
+namespace BillToPayApi.Models.DTOs
 {
-    public class ListacontaCadastrada
+    public class ListaContaCadastradaDto
     {
         public int Id { get; set; }
         public string Nome { get; set; }

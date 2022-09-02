@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using BillToPayApi.Models.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace BillToPayApi.Models
 {
@@ -9,5 +10,6 @@ namespace BillToPayApi.Models
 
         }
         public DbSet<ContaApagar> ContaApagar { get; set; }
+        
     }
 }
