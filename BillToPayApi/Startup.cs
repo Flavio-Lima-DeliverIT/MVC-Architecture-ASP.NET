@@ -22,16 +22,23 @@ namespace BillToPayApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
             services.AddDbContext<ContaApagarContext>(opt =>
             {
-                opt.UseInMemoryDatabase("ContaApagarLista");
+                opt.UseInMemoryDatabase("ContaApagar");
             });
+
+            services.AddDbContext<ListaContaCadastradaContext>(opt =>
+            {
+                opt.UseInMemoryDatabase("ListaContaCadastrada");
+            });
+
 
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
-                    Title = "BillToPay",
+                    Title = "Bill To Pay",
                     Version = "v1"
                 });
             });
@@ -50,7 +57,7 @@ namespace BillToPayApi
 
             //Start the Swagger IU
             app.UseSwaggerUI(c =>
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "BillToPay v1"));            
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Bill To Pay v1"));            
 
             app.UseHttpsRedirection();
 

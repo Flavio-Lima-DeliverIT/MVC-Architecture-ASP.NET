@@ -10,6 +10,7 @@ namespace BillToPayApi.Models
 
         }
         public DbSet<ContaApagar> ContaApagar { get; set; }
+        public DbSet<BillToPayApi.Models.DTOs.ContaApagarDto> ContaApagarDto { get; set; }
         
     }
 }
