@@ -1,7 +1,9 @@
 ﻿using BillToPayApi.Models;
 using BillToPayApi.Models.DTOs;
+using BillToPayApi.Models.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -40,37 +42,7 @@ namespace BillToPayApi.Controllers
             return contaApagarDto;
         }
 
-        // PUT: api/ContaApagarDto/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutContaApagarDto(int id, ContaApagarDto contaApagarDto)
-        {
-            if (id != contaApagarDto.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(contaApagarDto).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ContaApagarDtoExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
+       
 
         // POST: api/ContaApagarDto
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
@@ -78,6 +50,25 @@ namespace BillToPayApi.Controllers
         [HttpPost]
         public async Task<ActionResult<ContaApagarDto>> PostContaApagarDto(ContaApagarDto contaApagarDto)
         {
+            var atraso = (contaApagarDto.DataPagamento - contaApagarDto.DataVencimento);
+
+            if (atraso.Days > 0 && atraso.Days <= 3)
+            {
+                contaApagarDto.ValorOriginal += Convert.ToDecimal(((2 * contaApagarDto.ValorOriginal) / 100) + (atraso.Days * (1 / 10)));
+                contaApagarDto.ValorOriginal = decimal.Round(contaApagarDto.ValorOriginal, 2, MidpointRounding.ToEven);
+            }
+
+            if (atraso.Days > 3 && atraso.Days <= 5)
+            {
+                contaApagarDto.ValorOriginal += Convert.ToDecimal(((3 * contaApagarDto.ValorOriginal) / 100) + (atraso.Days * (2 / 10)));
+                contaApagarDto.ValorOriginal = decimal.Round(contaApagarDto.ValorOriginal, 2, MidpointRounding.ToEven);
+            }
+
+            if (atraso.Days > 5)
+            {
+                contaApagarDto.ValorOriginal += Convert.ToDecimal(((5 * contaApagarDto.ValorOriginal) / 100) + (atraso.Days * (3 / 10)));
+                contaApagarDto.ValorOriginal = decimal.Round(contaApagarDto.ValorOriginal, 2, MidpointRounding.ToEven);
+            }
             _context.ContaApagarDto.Add(contaApagarDto);
             await _context.SaveChangesAsync();
 
