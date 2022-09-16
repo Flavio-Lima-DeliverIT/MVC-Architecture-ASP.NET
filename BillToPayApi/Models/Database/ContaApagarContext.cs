@@ -1,16 +1,16 @@
-﻿using BillToPayApi.Models.DTOs;
+﻿using BillToPayApi.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace BillToPayApi.Models
+namespace BillToPayApi.Models.Database
 {
     public class ContaApagarContext : DbContext
     {
         public ContaApagarContext(DbContextOptions<ContaApagarContext> options) : base(options)
         {
-
+            //Database.EnsureCreated();
         }
-       // public DbSet<ContaApagar> ContaApagar { get; set; }
-        public DbSet<ContaApagarDto> ContaApagarDto { get; set; }
+         public DbSet<ContaApagar> ContaApagar { get; set; }
         
+
     }
 }

@@ -11,8 +11,21 @@ namespace BillToPayApi.Models.Entities
         public int QdeDiasEmAtraso { get; set; }
         public DateTime DataVencimento { get; set; }
         public DateTime DataPagamento { get; set; }
-        public double Multa { get; set; }
-        public double JurosDia { get; set; }
+        public decimal Multa { get; set; } 
+        public decimal JurosDia { get; set; }
 
+        public override string ToString() 
+        {
+            string msg = "******** CONTA CADASTRADA ********" +
+                         "\nCódigo :  " + Id + 
+                         "\nNome Credor :  " + Nome +
+                         "\nValor Original : " + ValorOriginal +
+                         "\nValor Corrigido : " + ValorCorrigido +
+                         "\nData do Vencimento : " + DataVencimento +                   
+                         "\nData do Pagamento : " + DataPagamento +
+                         "\nDias em Atraso : " + QdeDiasEmAtraso +
+                         "\n********************************";
+            return msg;
+        }
     }
 }

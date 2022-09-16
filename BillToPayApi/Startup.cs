@@ -1,4 +1,5 @@
-using BillToPayApi.Models;
+using BillToPayApi.Models.Database;
+using BillToPayApi.Models.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -21,6 +22,7 @@ namespace BillToPayApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IContaApagarService , ContaApagarService>();
             services.AddControllers();
 
             services.AddDbContext<ContaApagarContext>(opt =>
@@ -28,10 +30,10 @@ namespace BillToPayApi
                 opt.UseInMemoryDatabase("ContaApagar");
             });
 
-            services.AddDbContext<ListaContaCadastradaContext>(opt =>
-            {
-                opt.UseInMemoryDatabase("ListaContaCadastrada");
-            });
+            //services.AddDbContext<ListaContaCadastradaContext>(opt =>
+            //{
+            //    opt.UseInMemoryDatabase("ListaContaCadastrada");
+            //});
 
 
             services.AddSwaggerGen(c =>
